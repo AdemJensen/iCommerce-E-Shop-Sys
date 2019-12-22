@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="tomcat-dbcp">
+    <CLASSES>
+      <root url="jar:///usr/local/Cellar/tomcat/9.0.27/libexec/lib/tomcat-dbcp.jar!/" />
+      <root url="jar:///usr/local/Cellar/tomcat/9.0.27/libexec/lib/tomcat-api.jar!/" />
+      <root url="jar:///usr/local/Cellar/tomcat/9.0.27/libexec/lib/jsp-api.jar!/" />
+      <root url="jar:///usr/local/Cellar/tomcat/9.0.27/libexec/lib/websocket-api.jar!/" />
+      <root url="jar:///usr/local/Cellar/tomcat/9.0.27/libexec/lib/servlet-api.jar!/" />
+      <root url="jar:///usr/local/Cellar/tomcat/9.0.27/libexec/lib/tomcat-websocket.jar!/" />
+      <root url="jar:///usr/local/Cellar/tomcat/9.0.27/libexec/lib/tomcat-jdbc.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
