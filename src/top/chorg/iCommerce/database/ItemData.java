@@ -413,11 +413,11 @@ public class ItemData {
                                 res.getDouble("price_old"),
                                 res.getDouble("price_new"),
                                 res.getInt("cover"),
-                                res.getInt("item.quantity"),
+                                res.getInt(database.conf.DATABASE_TABLE_ITEM + ".quantity"),
                                 res.getInt("deals"),
                                 res.getTimestamp("releaseDate")
                         ),
-                        res.getInt("cart.quantity")
+                        res.getInt(database.conf.DATABASE_TABLE_CART + ".quantity")
                 ));
             }
             return list.toArray(new CartItem[0]);
