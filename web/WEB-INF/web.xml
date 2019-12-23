@@ -390,12 +390,12 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>InitPage</servlet-name>
-        <jsp-file>/pages/admin/init.jsp</jsp-file>
+        <servlet-name>GuidePage</servlet-name>
+        <jsp-file>/pages/guide.jsp</jsp-file>
     </servlet>
     <servlet-mapping>
-        <servlet-name>InitPage</servlet-name>
-        <url-pattern>/init</url-pattern>
+        <servlet-name>GuidePage</servlet-name>
+        <url-pattern>/guide</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -404,7 +404,16 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>InitSys</servlet-name>
-        <url-pattern>/init/execute</url-pattern>
+        <url-pattern>/init</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>InitPage</servlet-name>
+        <jsp-file>/pages/init.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>InitPage</servlet-name>
+        <url-pattern>/init-page</url-pattern>
     </servlet-mapping>
 
 <!--    <servlet>-->

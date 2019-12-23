@@ -15,7 +15,7 @@
     try {
         conf = Config.readConfFromFile(request);
     } catch (FileNotFoundException e) {
-        response.sendRedirect(request.getContextPath() + "/init");
+        response.sendRedirect(request.getContextPath() + "/init-page");
         return;
     }
 %>

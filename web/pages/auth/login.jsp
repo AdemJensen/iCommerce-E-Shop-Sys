@@ -47,14 +47,15 @@
             <h1 class="text-center">登录到<%= conf.SYSTEM_NAME %></h1>
             <div class="form-group am-form-icon am-form-feedback">
                 <label for="username">用户名</label>
-                <input class="form-control" type="text" name="username" id="username" minLength="3" maxLength="18" pattern="[A-Za-z0-9_\-]+" placeholder="请输入用户名" required />
+                <input value="test" class="form-control" type="text" name="username" id="username" minLength="3" maxLength="18" pattern="[A-Za-z0-9_\-]+" placeholder="请输入用户名" required />
                 <div class="invalid-feedback">有效的用户名应该由3-18位字母和数字组成</div>
             </div>
             <div class="form-group am-form-icon am-form-feedback">
                 <label for="password">密码</label>
-                <input class="form-control" type="password" name="password" id="password" placeholder="请输入密码" minLength="3" maxLength="18" required />
+                <input value="123456" class="form-control" type="password" name="password" id="password" placeholder="请输入密码" minLength="3" maxLength="18" required />
                 <div class="invalid-feedback">有效的密码长度应当介于3-18位</div>
             </div>
+            <small class="form-text text-muted">*为了方便老师操作，用户名和密码已经自动填写（test, 123456）</small>
             <button type="submit" class="col-12 btn btn-primary mt-2" id="submit">登录</button>
         </form>
     </div>

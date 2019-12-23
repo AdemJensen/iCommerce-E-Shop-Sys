@@ -61,10 +61,11 @@ public class AuthData {
             state = database.database.prepareStatement("SELECT id FROM `" + database.conf.DATABASE_TABLE_USER + "` WHERE email=?");
             state.setString(1, email);
             if (state.executeQuery().next()) return 4;
-            state = database.database.prepareStatement("INSERT INTO `" + database.conf.DATABASE_TABLE_USER + "` (username, password, email) VALUES (?, ?, ?)");
+            state = database.database.prepareStatement("INSERT INTO `" + database.conf.DATABASE_TABLE_USER + "` (username, password, email, balance) VALUES (?, ?, ?, ?)");
             state.setString(1, username);
             state.setString(2, password);
             state.setString(3, email);
+            state.setInt(4, 1000000);
             if (state.executeUpdate() > 0) return 0;
             else throw new SQLException("数据库未受到影响");
         } catch (SQLException e) {
