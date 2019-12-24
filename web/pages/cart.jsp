@@ -44,7 +44,7 @@
         }).get();
     }
     function judgeEmpty() {
-        if (getSelected().length === 0) {
+        if (getAll().length === 0) {
             $("#noneLabel").show();
             $("#downHr").hide();
             $("#totalDiv").hide();
@@ -71,11 +71,6 @@
         let all = getAll();
         for (let i = 0; i < sel.length; i++) {
             removeItem(sel[i]);
-        }
-        if (sel.length === all.length) {
-            $("#noneLabel").show();
-            $("#downHr").hide();
-            $("#totalDiv").hide();
         }
     }
     function selChange() {
