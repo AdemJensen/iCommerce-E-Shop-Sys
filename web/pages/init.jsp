@@ -51,7 +51,7 @@
 <div class="container-fluid vh-100">
     <div class="col-sm-8 text-center" style="position: relative;transform: translate(-50%, -50%);top: 40%;left: 50%;">
         <h1 style="font-size: 400%" class="my-5">正在初始化页面</h1>
-        <p class="col-auto mt-3" style="max-height: 60%;overflow: scroll;">网站正在初始化中，请稍侯...</p>
+        <p class="col-auto mt-3" style="max-height: 60%;overflow: auto;">网站正在初始化中，请稍侯...</p>
     </div>
 </div>
 </body>

@@ -52,7 +52,7 @@
 <div class="container-fluid vh-100">
     <div class="col-sm-8 text-center" style="position: relative;transform: translate(-50%, -50%);top: 40%;left: 50%;">
         <h1 style="font-size: 400%" class="text-danger my-5">页面出现错误</h1>
-        <p class="text-left col-auto mt-3" style="max-height: 60%;overflow: scroll;">真抱歉，此页面出现了错误，要不等会再试试？<br/>错误信息：<%
+        <p class="text-left col-auto mt-3" style="max-height: 60%;overflow: auto;">真抱歉，此页面出现了错误，要不等会再试试？<br/>错误信息：<%
             exception.printStackTrace();
             ByteArrayOutputStream ost = new ByteArrayOutputStream();
             exception.printStackTrace(new PrintStream(ost));

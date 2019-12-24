@@ -15,8 +15,12 @@
     try {
         conf = Config.readConfFromFile(request);
     } catch (FileNotFoundException e) {
-        response.sendRedirect(request.getContextPath() + "/init-page");
-        return;
+        if (session.getAttribute("BACKUP-PLAN") == null) {
+            session.setAttribute("BACKUP-PLAN", "ON");
+            response.sendRedirect(request.getContextPath() + "/init-page");
+            return;
+        }
+        conf = Config.getDefault();
     }
 %>
 

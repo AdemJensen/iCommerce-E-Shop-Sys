@@ -33,7 +33,7 @@ public class OrderData {
             state.setInt(1, orderId);
             ResultSet res = state.executeQuery();
             if (!res.next()) return -1;
-            return res.getInt("userId");
+            return res.getInt("status");
         } catch (SQLException e) {
             System.err.printf("Error while getting OrderStatus (%s)\n", e.getMessage());
             return -1;  // 出现未知错误

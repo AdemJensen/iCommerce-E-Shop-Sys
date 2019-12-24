@@ -24,7 +24,6 @@ public class Refund extends HttpServlet {
         String res_hint = "";
         try {
             int target = Integer.parseInt(request.getParameter("refundTarget"));
-
             Database database = Database.connect(Config.readConfFromFile(request));
             int ops;
             if (OrderData.getOrderStatus(database, target) == 0) {

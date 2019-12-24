@@ -43,7 +43,7 @@
 <div class="container-fluid vh-100">
     <div class="col-sm-8 text-center" style="position: relative;transform: translate(-50%, -50%);top: 40%;left: 50%;">
         <h1 style="font-size: 400%" class="my-5 <%= res_type %>"><%= res_str %></h1>
-        <p class="mt-3" style="max-height: 60%;overflow: scroll;"><%= res_info %></p>
+        <p class="mt-3" style="max-height: 60%;overflow: auto;"><%= res_info %></p>
         <c:choose>
             <c:when test='<%= res_type.equals("text-success") && call_back.length() > 0 %>'>
                 <p><span id="counter">3</span> 秒后将返回上一页...<a href="<%= call_back %>">立即返回</a></p>

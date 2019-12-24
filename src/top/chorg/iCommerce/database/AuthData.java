@@ -18,7 +18,7 @@ public class AuthData {
             );
             state.setString(1, username);
             state.setString(2, password);
-            var res = state.executeQuery();
+            ResultSet res = state.executeQuery();
             if (!res.next()) return 3;
             if (res.getShort("disabled") != 0) return 4;    // 用户已经被封禁
             session.setAttribute("c_id", res.getInt("id"));
@@ -39,7 +39,7 @@ public class AuthData {
             );
             state.setString(1, username);
             state.setString(2, password);
-            var res = state.executeQuery();
+            ResultSet res = state.executeQuery();
             if (!res.next()) return 3;
             session.setAttribute("a_id", res.getInt("id"));
             session.setAttribute("a_level", res.getInt("level"));
@@ -102,7 +102,7 @@ public class AuthData {
                     "SELECT username, id, email, balance, registerTime FROM `" + database.conf.DATABASE_TABLE_USER + "` WHERE id=?"
             );
             state.setInt(1, id);
-            var res = state.executeQuery();
+            ResultSet res = state.executeQuery();
             if (!res.next()) return null;
             return new Customer(
                     res.getInt("id"),
