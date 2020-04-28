@@ -2,7 +2,7 @@
 
 ## 简介
 
-iCommerce 是一款简单的在线商务系统，可以提供一些基础的的 B2C 购物服务，满足一些个人或者微型企业的电子商务建设需求。您可以在 [http://shop.demo.chorg.top](shop.demo.chorg.top) 浏览 Demo 系统。
+iCommerce 是一款简单的在线商务系统，可以提供一些基础的的 B2C 购物服务，满足一些个人或者微型企业的电子商务建设需求。您可以在 http://shop.demo.chorg.top 浏览 Demo 系统。
 
 iCommerce系统拥有以下功能特性：
 - 可定制的主页和商品简介
