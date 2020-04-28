@@ -47,34 +47,62 @@ iCommerce系统拥有以下功能特性：
 
 ```JSON
 {
-  // 基本设置
-  "SYSTEM_NAME": "iCommerce",   // 系统名，会显示在各个地方
-  "USE_MODIFIED_INDEX": false,  // 是否使用自定义的页面
-  "MODIFIED_INDEX_FILE": "",    // 自定义页面的文件名，文件放在custom文件夹下
-  "CHAT_SYSTEM": "",            // 聊天系统代码，可以看Tidio系统
-  // 数据库设置
-  "DATABASE_ADDR": "127.0.0.1", // 数据库地址
-  "DATABASE_PORT": 3306,        // 数据库端口
-  "DATABASE_USERNAME": "root",  // 数据库用户名
-  "DATABASE_PASSWORD": "PASSWD",// 数据库密码
-  "DATABASE_SCHEMA": "iCommerce",// 数据库名称
-  "DATABASE_USE_UNICODE": true, // 是否使用Unicode字符集连接
-  "DATABASE_ENCODING": "UTF-8", // 连接字符集
-  "DATABASE_TIMEZONE": "",      // 连接使用时区，建议留空
-  "DATABASE_USE_SSL": false,    // 是否使用SSL连接
-  "PUBLIC_KEY_RETRIEVAL": true, // 是否允许公钥检索，这里一般是true
-  // 数据表名称
-  "DATABASE_TABLE_ADMIN": "admin",  // 管理员用户数据表
-  "DATABASE_TABLE_CART": "cart",    // 购物车数据表
-  "DATABASE_TABLE_ITEM": "item",    // 物品数据表
-  "DATABASE_TABLE_ITEM_TYPE": "item_type",  // 物品类型数据表
-  "DATABASE_TABLE_ITEM_TYPE_BELONG": "item_type_belong",  // 物品类型关系数据表
-  "DATABASE_TABLE_ORDER": "order",  // 订单数据表
-  "DATABASE_TABLE_ORDER_BELONG": "order_belong",  // 订单关系数据表
-  "DATABASE_TABLE_SHIPPING": "shipping",  // 运送信息数据表
-  "DATABASE_TABLE_USER": "user"   // 用户数据表
+  "SYSTEM_NAME": "iCommerce",
+  "USE_MODIFIED_INDEX": false, 
+  "MODIFIED_INDEX_FILE": "",
+  "CHAT_SYSTEM": "",
+
+  "DATABASE_ADDR": "127.0.0.1",
+  "DATABASE_PORT": 3306,
+  "DATABASE_USERNAME": "root",
+  "DATABASE_PASSWORD": "PASSWD",
+  "DATABASE_SCHEMA": "iCommerce",
+  "DATABASE_USE_UNICODE": true,
+  "DATABASE_ENCODING": "UTF-8",
+  "DATABASE_TIMEZONE": "",
+  "DATABASE_USE_SSL": false,
+  "PUBLIC_KEY_RETRIEVAL": true,
+
+  "DATABASE_TABLE_ADMIN": "admin", 
+  "DATABASE_TABLE_CART": "cart", 
+  "DATABASE_TABLE_ITEM": "item",
+  "DATABASE_TABLE_ITEM_TYPE": "item_type",
+  "DATABASE_TABLE_ITEM_TYPE_BELONG": "item_type_belong",
+  "DATABASE_TABLE_ORDER": "order",
+  "DATABASE_TABLE_ORDER_BELONG": "order_belong",
+  "DATABASE_TABLE_SHIPPING": "shipping",
+  "DATABASE_TABLE_USER": "user"
 }
 ```
+
+设置解释：
+
+- 基本设置
+  - "SYSTEM_NAME": 系统名，会显示在各个地方
+  - "USE_MODIFIED_INDEX": 是否使用自定义的页面
+  - "MODIFIED_INDEX_FILE": 自定义页面的文件名，文件放在custom文件夹下
+  - "CHAT_SYSTEM": 聊天系统代码，可以看Tidio系统
+- 数据库设置
+  - "DATABASE_ADDR": 数据库地址
+  - "DATABASE_PORT": 数据库端口
+  - "DATABASE_USERNAME": 数据库用户名
+  - "DATABASE_PASSWORD": 数据库密码
+  - "DATABASE_SCHEMA": 数据库名称
+  - "DATABASE_USE_UNICODE": 是否使用Unicode字符集连接
+  - "DATABASE_ENCODING": 连接字符集
+  - "DATABASE_TIMEZONE": 连接使用时区，建议留空
+  - "DATABASE_USE_SSL": 是否使用SSL连接
+  - "PUBLIC_KEY_RETRIEVAL": 是否允许公钥检索，这里一般是true
+- 数据表名称
+  - "DATABASE_TABLE_ADMIN": 管理员用户数据表
+  - "DATABASE_TABLE_CART": 购物车数据表
+  - "DATABASE_TABLE_ITEM": 物品数据表
+  - "DATABASE_TABLE_ITEM_TYPE": 物品类型数据表
+  - "DATABASE_TABLE_ITEM_TYPE_BELONG": 物品类型关系数据表
+  - "DATABASE_TABLE_ORDER": 订单数据表
+  - "DATABASE_TABLE_ORDER_BELONG": 订单关系数据表
+  - "DATABASE_TABLE_SHIPPING": 运送信息数据表
+  - "DATABASE_TABLE_USER": 用户数据表
 
 接下来，您需要将 `init.sql` 文件内的各种操作进行修改，使得其与`config.json`中的数据相符，之后在您的终端里执行它，或者使用数据库管理工具导入它。
 

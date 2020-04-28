@@ -65,7 +65,7 @@ public class RegisterSubmit extends HttpServlet {
             res_str = "出现错误";
             res_hint += "[严重] 错误，原因：" + e.getMessage();
         }
-        Request.becomeInfoPage(request, response, res_type, "注册", res_str, res_hint, request.getContextPath() + "/login");
+        Request.becomeInfoPage(request, response, false, res_type, "注册", res_str, res_hint, request.getContextPath() + "/login");
 
     }
 }

@@ -66,6 +66,6 @@ public class SetConfigDefault extends HttpServlet {
             res_str = "设置失败";
             res_hint = "出现未知错误：" + e.getMessage();
         }
-        Request.becomeInfoPage(request, response, res_type, "config.json初始化", res_str, res_hint, "");
+        Request.becomeInfoPage(request, response, true, res_type, "config.json初始化", res_str, res_hint, "");
     }
 }

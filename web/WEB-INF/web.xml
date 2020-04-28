@@ -89,6 +89,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>MiniInfoPage</servlet-name>
+        <jsp-file>/pages/info-min.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MiniInfoPage</servlet-name>
+        <url-pattern>/info-min</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>LoginPage</servlet-name>
         <jsp-file>/pages/auth/login.jsp</jsp-file>
     </servlet>

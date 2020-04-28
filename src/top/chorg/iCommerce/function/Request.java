@@ -1,5 +1,6 @@
 package top.chorg.iCommerce.function;
 
+import top.chorg.iCommerce.api.Config;
 import top.chorg.iCommerce.function.auth.AuthInfo;
 
 import javax.servlet.ServletException;
@@ -50,6 +51,7 @@ public class Request {
      * 在不改变地址栏的情况下将页面跳转到info界面。
      *
      * @param request request对象，用于获取info页面地址
+     * @param simple 是否使用简单信息页面，复杂信息页面需要 config 文件到位
      * @param type  信息类型，可以是success, warning, error三种之一。
      * @param title 显示在标题栏上的文字内容
      * @param info  显示在主页面的h1内容，颜色由type决定
@@ -59,21 +61,26 @@ public class Request {
      *                  如果不想设置跳转，请传入空字符串。
      * @throws IOException 获取信息时出现错误。
      */
-    public static void becomeInfoPage(HttpServletRequest request, HttpServletResponse response,
+    public static void becomeInfoPage(HttpServletRequest request, HttpServletResponse response, boolean simple,
                                       String type, String title, String info, String hint, String callBack
     ) throws IOException, ServletException {
+        //if (!Config.configFileExists(request)) simple = true;
         String content = "info_type=" + URLEncoder.encode(type, String.valueOf(StandardCharsets.UTF_8));
         content += "&title="  + URLEncoder.encode(title, String.valueOf(StandardCharsets.UTF_8));
         content += "&info_str="  + URLEncoder.encode(info, String.valueOf(StandardCharsets.UTF_8));
         content += "&info_hint="  + URLEncoder.encode(hint, String.valueOf(StandardCharsets.UTF_8));
         if (callBack != null && callBack.length() > 0)
             content += "&call_back="  + URLEncoder.encode(callBack, String.valueOf(StandardCharsets.UTF_8));
-        request.getRequestDispatcher("/info?" + content).forward(request, response);
+        if (simple) {
+            request.getRequestDispatcher("/info-min?" + content).forward(request, response);
+        } else {
+            request.getRequestDispatcher("/info?" + content).forward(request, response);
+        }
     }
     public static void becomeInfoPage(HttpServletRequest request, HttpServletResponse response,
                                       String type, String title, String info, String hint
     ) throws IOException, ServletException {
-        becomeInfoPage(request, response, type, title, info, hint, "-1");
+        becomeInfoPage(request, response, true, type, title, info, hint, "-1");
     }
 
     public static void setLastVis(HttpServletRequest request) {

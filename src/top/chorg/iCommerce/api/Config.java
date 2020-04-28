@@ -75,6 +75,15 @@ public class Config {
         return gson.fromJson(new FileReader(request.getServletContext().getRealPath(path)), Config.class);
     }
 
+    public static boolean configFileExists(HttpServletRequest request) {
+        try {
+            readConfFromFile(request, "config.json");
+            return true;
+        } catch (FileNotFoundException e) {
+            return false;
+        }
+    }
+
     public String getJson() {
         Gson gson = new Gson();
         return gson.toJson(this);

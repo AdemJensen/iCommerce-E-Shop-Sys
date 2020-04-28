@@ -18,11 +18,11 @@ public class Init_Default extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         String ip = request.getRemoteAddr();
-        if(!ip.equals("127.0.0.1") && !ip.equals("0:0:0:0:0:0:0:1")){
-            Request.becomeInfoPage(request, response, "error", "错误", "您的网络环境不符合要求",
-                    "由于安全策略，本页面只能在内网环境下才可以访问。");
-            return;
-        }
+//        if(!ip.equals("127.0.0.1") && !ip.equals("0:0:0:0:0:0:0:1")){
+//            Request.becomeInfoPage(request, response, "error", "错误", "您的网络环境不符合要求",
+//                    "由于安全策略，本页面只能在内网环境下才可以访问。");
+//            return;
+//        }
         String path = request.getContextPath();
         String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
         String res_type;

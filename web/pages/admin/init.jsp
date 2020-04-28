@@ -196,7 +196,7 @@
                         <div class="form-group">
                             <label for="DATABASE_TIMEZONE">服务器时区</label>
                             <input class="form-control" type="text" name="DATABASE_TIMEZONE" id="DATABASE_TIMEZONE"
-                                   placeholder="默认与服务器时区同步" value="" />
+                                   placeholder="默认 GMT%2B8" value="GMT%2B8" />
                             <div class="invalid-feedback">请提供一个有效的时区系统</div>
                         </div>
                         <div class="form-group">

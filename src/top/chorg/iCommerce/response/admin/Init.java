@@ -18,11 +18,11 @@ public class Init extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         String ip = request.getRemoteAddr();
-        if(!ip.equals("127.0.0.1") && !ip.equals("0:0:0:0:0:0:0:1")){
-            Request.becomeInfoPage(request, response, "error", "错误", "您的网络环境不符合要求",
-                    "由于安全策略，本页面只能在内网环境下才可以访问。");
-            return;
-        }
+//        if(!ip.equals("127.0.0.1") && !ip.equals("0:0:0:0:0:0:0:1")){
+//            Request.becomeInfoPage(request, response, "error", "错误", "您的网络环境不符合要求",
+//                    "由于安全策略，本页面只能在内网环境下才可以访问。");
+//            return;
+//        }
         String path = request.getContextPath();
         String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
         String res_type;
@@ -91,7 +91,7 @@ public class Init extends HttpServlet {
                         "  `level` int(11) NOT NULL DEFAULT '0' COMMENT '0 = edit items\\n1 = edit system conf',\n" +
                         "  PRIMARY KEY (`id`),\n" +
                         "  UNIQUE KEY `id_UNIQUE` (`id`)\n" +
-                        ") ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;");
+                        ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;");
                 state.executeUpdate();
                  // Dumping data for table `" + conf.DATABASE_TABLE_ADMIN + "`
                 state = database.database.prepareStatement("LOCK TABLES `" + conf.DATABASE_TABLE_ADMIN + "` WRITE;");
@@ -129,7 +129,7 @@ public class Init extends HttpServlet {
                         "  `releaseDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\n" +
                         "  PRIMARY KEY (`id`),\n" +
                         "  UNIQUE KEY `id_UNIQUE` (`id`)\n" +
-                        ") ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;");
+                        ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;");
                 state.executeUpdate();
                 // Table structure for table `" + conf.DATABASE_TABLE_ITEM_TYPE + "`
                 state = database.database.prepareStatement("DROP TABLE IF EXISTS `" + conf.DATABASE_TABLE_ITEM_TYPE + "`;");
@@ -143,7 +143,7 @@ public class Init extends HttpServlet {
                         "  PRIMARY KEY (`id`),\n" +
                         "  UNIQUE KEY `id_UNIQUE` (`id`),\n" +
                         "  UNIQUE KEY `type_name_UNIQUE` (`type_name`)\n" +
-                        ") ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;");
+                        ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;");
                 state.executeUpdate();
                  // Table structure for table `" + conf.DATABASE_TABLE_ITEM_TYPE_BELONG + "`
                 state = database.database.prepareStatement("DROP TABLE IF EXISTS `" + conf.DATABASE_TABLE_ITEM_TYPE_BELONG + "`;");
@@ -168,7 +168,7 @@ public class Init extends HttpServlet {
                         "  PRIMARY KEY (`id`),\n" +
                         "  UNIQUE KEY `orderId_UNIQUE` (`id`),\n" +
                         "  UNIQUE KEY `orderNum_UNIQUE` (`orderNum`)\n" +
-                        ") ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;");
+                        ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;");
                 state.executeUpdate();
                  // Table structure for table `" + conf.DATABASE_TABLE_ORDER_BELONG + "`
                 state = database.database.prepareStatement("DROP TABLE IF EXISTS `" + conf.DATABASE_TABLE_ORDER_BELONG + "`;");
@@ -196,7 +196,7 @@ public class Init extends HttpServlet {
                         "  `userId` int(11) NOT NULL,\n" +
                         "  PRIMARY KEY (`id`),\n" +
                         "  UNIQUE KEY `id_UNIQUE` (`id`)\n" +
-                        ") ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;");
+                        ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;");
                 state.executeUpdate();
                  // Table structure for table `" + conf.DATABASE_TABLE_USER + "`
                 state = database.database.prepareStatement("DROP TABLE IF EXISTS `" + conf.DATABASE_TABLE_USER + "`;");
@@ -211,7 +211,7 @@ public class Init extends HttpServlet {
                         "  `disabled` tinyint(4) NOT NULL DEFAULT '0',\n" +
                         "  PRIMARY KEY (`id`),\n" +
                         "  UNIQUE KEY `user_id_uindex` (`id`)\n" +
-                        ") ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;");
+                        ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;");
                 state.executeUpdate();
                 database.database.close();
                 conf.DATABASE_SCHEMA = DATABASE_SCHEMA;
