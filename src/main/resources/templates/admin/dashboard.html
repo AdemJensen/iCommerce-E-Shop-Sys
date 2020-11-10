@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html class="min-vh-100" th:with="selectedTab='none'" xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<head th:include="includes/basic :: header ('Dashboard')">
+    <title></title>
+</head>
+
+<script th:inline="javascript">
+    function getAll() {
+        return $("input[name='item']").map(function () {
+            return Number.parseInt($(this).val());
+        }).get();
+    }
+
+    function getSelected() {
+        return $("input[name='item']:checked").map(function () {
+            return Number.parseInt($(this).val());
+        }).get();
+    }
+
+    function judgeEmpty() {
+        if (getAll().length === 0) {
+            $("#noneLabel").show();
+            $("#downHr").hide();
+            $("#totalDiv").hide();
+        }
+    }
+
+    function removeItem(id) {
+        $.post(
+            "[(@{/cart/set})]",
+            {
+                "item": id,
+                "quantity": 0
+            },
+            function (data) {
+                if (data === "OK") {
+                    document.querySelector("#item-tab-" + id).outerHTML = "";
+                    judgeEmpty();
+                    selChange();
+                }
+            }
+        );
+    }
+
+    function removeSel() {
+        let sel = getSelected();
+        // let all = getAll();
+        for (let i = 0; i < sel.length; i++) {
+            removeItem(sel[i]);
+        }
+    }
+
+    function selChange() {
+        let tot = 0.0;
+        let sel = getSelected();
+        for (let i = 0; i < sel.length; i++) {
+            tot += Number.parseInt($("#item-price-" + sel[i]).html());
+        }
+        let all = getAll();
+        document.querySelector("#sel_all").checked = sel.length === all.length;
+        $("#totalPrice").html(tot);
+        if (getSelected().length === 0) {
+            $("#del").addClass("disabled");
+            $("#sub").addClass("disabled");
+        } else {
+            $("#del").removeClass("disabled");
+            $("#sub").removeClass("disabled");
+        }
+    }
+
+    function selAll() {
+        if (document.querySelector("#sel_all").checked) {
+            let all = getAll();
+            for (let i = 0; i < all.length; i++) {
+                document.querySelector("#item-sel-" + all[i]).checked = true;
+            }
+        } else {
+            let all = getAll();
+            for (let i = 0; i < all.length; i++) {
+                document.querySelector("#item-sel-" + all[i]).checked = false;
+            }
+        }
+        selChange();
+    }
+</script>
+
+<body class="min-vh-100">
+<!--/*@thymesVar id="selectedTab" type="java.lang.String"*/-->
+<nav th:replace="includes/basic :: nav-bar (${selectedTab})"></nav>
+
+<div th:replace="includes/admin :: side-bar ('dashboard', ~{:: '#233'})">
+    <div id="233">This is a test</div>
+</div>
+
+<div th:replace="includes/basic :: footer"></div>
+
+</body>
+</html>

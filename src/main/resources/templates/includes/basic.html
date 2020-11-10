@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<head th:fragment="header (pageName)">
+    <!-- Set render engine for 360 browser -->
+    <meta name="renderer" content="webkit">
+
+    <link rel="icon" type="image/png" th:href="@{/img/favicon.ico}">
+
+    <!-- Add to home screen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" th:href="@{/a}">
+
+    <!-- Add to home screen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
+    <link rel="apple-touch-icon-precomposed" th:href="@{/img/favicon-72.png}">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="assets/i/favicon-72.png">
+    <meta name="msapplication-TileColor" content="#0e90d2">
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+
+    <!--[if (gte IE 9)|!(IE)]><!-->
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <!--<![endif]-->
+    <!--[if lte IE 8 ]>
+    <script th:src="@{/js/jquery.ie8.min.js}"></script>
+    <script th:src="@{/js/modernizr.js}"></script>
+    <![endif]-->
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/MD5.js}"></script>
+
+    <title>[[ ${pageName} ]] - [[ ${ general.siteSettings.siteName } ]]</title>
+</head>
+<body>
+
+<nav th:fragment="nav-bar (selectedTab)" class="navbar navbar-light navbar-expand-lg" style="background-color: #e3f2fd;">
+    <a class="navbar-brand" th:href="@{/}">[[ ${ general.siteSettings.siteName } ]]</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+            aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse container-fluid" id="navbarNav">
+        <div class="collapse navbar-collapse pl-0">
+            <ul class="navbar-nav col-sm-auto">
+                <li th:class="'nav-item ' + (${selectedTab} eq 'index' ? 'active' : '')">
+                <a class="nav-link" th:href="@{/}">首页<span class="sr-only" th:if="${selectedTab} eq 'index'">(current)</span></a>
+                </li>
+                <li th:class="'nav-item ' + (${selectedTab} eq 'all' ? 'active' : '')">
+                <a class="nav-link" th:href="@{/items}" th:inline="text">所有商品<span class="sr-only" th:if="${selectedTab} eq 'all'">(current)</span></a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a th:class="'nav-link dropdown-toggle ' + (${selectedTab} eq 'type' ? 'active' : '')" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    分类<span class="sr-only" th:if="${selectedTab} eq 'type'">(current)</span>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+
+                    </div>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0 pl-3 col-sm-auto">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="全站搜索">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜索</button>
+            </form>
+        </div>
+        <div class="nav-item dropdown" th:if="${T(top.chorg.icommerce.TestStaticClass).successAuthTest(session)}"> <!-- isCustomer -->
+            <div class="align-self-sm-end nav-item p-1" id="userDropdownLink"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img src="" th:src="${T(top.chorg.icommerce.TestStaticClass).getOkStr(session)}" alt="Avatar" style="height: 30px; border-radius: 100%"/>
+                <label class="mx-2 my-0">TestUser</label>
+            </div>
+            <div class="dropdown-menu" aria-labelledby="userDropdownLink" style="left: auto; right: 0;">
+                <a class="dropdown-item disabled" href="#">个人主页</a>
+                <a class="dropdown-item" th:href="@{/cart}">购物车</a>
+                <a class="dropdown-item" th:href="@{/orders}">我的订单</a>
+                <a class="dropdown-item disabled" href="#">设置</a>
+                <a class="dropdown-item" th:href="@{/exit}">退出登录</a>
+            </div>
+        </div>
+
+        <div class="nav-item dropdown" th:if="${T(top.chorg.icommerce.TestStaticClass).failureAuthTest(session)}"> <!-- isAdmin -->
+            <div class="align-self-sm-end nav-item p-1" id="adminDropdownLink"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img src="" th:src="${T(top.chorg.icommerce.TestStaticClass).getOkStr(session)}" alt="Avatar" style="height: 30px; border-radius: 100%"/>
+                <label class="mx-2 my-0"><%= AuthInfo.getAdminUsername(session) %>【权限级别<%= AuthInfo.getAdminLevel(session) %>管理员】</label>
+            </div>
+            <div class="dropdown-menu" aria-labelledby="adminDropdownLink" style="left: auto; right: 0;">
+                <a class="dropdown-item" th:href="@{/admin/order}">订单管理</a>
+                <a class="dropdown-item" th:href="@{/admin/item}">商品管理</a>
+                <a class="dropdown-item" th:href="@{/admin/type}">商品类别管理</a>
+                <a class="dropdown-item disabled" th:href="@{/admin/type}">图床</a>
+                <a class="dropdown-item disabled" th:href="@{/admin/account/customer}">顾客账户管理</a>
+                <a class="dropdown-item" th:href="@{/admin/sys}">系统设置</a>
+                <a class="dropdown-item" th:href="@{/exit}">退出登录</a>
+            </div>
+        </div>
+        <div class="align-self-sm-end" th:if="${T(top.chorg.icommerce.TestStaticClass).failureAuthTest(session)}"> <!-- otherwise -->
+            <a th:href="@{/login}" class="btn btn-light">登录</a>
+            <a th:href="@{/register}" class="btn btn-primary text-white">注册</a>
+        </div>
+    </div>
+</nav>
+
+<div th:fragment="footer" class="container-fluid py-3 px-0" style="background-color: slategrey;">
+    <p class="text-center text-white my-0">
+        Powered by. 苏卡不列斯基 | <a class="text-white" th:href="@{/admin/login}">管理员登录</a><br/>
+        Copyright © ChenHui Studio 2015-2020, All rights reserved.
+    </p>
+</div>
+
+</body>
+</html>
