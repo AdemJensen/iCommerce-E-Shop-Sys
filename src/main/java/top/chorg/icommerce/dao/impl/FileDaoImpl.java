@@ -11,8 +11,11 @@ import top.chorg.icommerce.dao.FileDao;
 @Repository
 public class FileDaoImpl implements FileDao {
 
-    @Autowired
-    private JdbcTemplate dbTemplate;
+    private final JdbcTemplate dbTemplate;
+
+    public FileDaoImpl(JdbcTemplate dbTemplate) {
+        this.dbTemplate = dbTemplate;
+    }
 
     @Override
     public String getFileName(String id) throws DataAccessException {

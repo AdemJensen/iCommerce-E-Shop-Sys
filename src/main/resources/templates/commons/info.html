@@ -13,7 +13,7 @@
         <div th:class="'my-5 ' + ${resType}">[( ${resIconHtml} )]</div>
         <h1 style="font-size: 400%" th:class="'my-5 ' + ${resType}">[[ ${resStr} ]]</h1>
         <p class="mt-3" style="max-height: 60%;overflow: auto;">[[ ${resInfo} ]]</p>
-        <p th:if="${shouldCountDown}"><span id="counter">3</span> 秒后将返回上一页...<a href="" th:href="${callBack}">立即返回</a></p>
+        <p th:if="${shouldCountDown}"><span id="counter">3</span> 秒后将返回上一页...<a href="" th:href="@{${callBack}}">立即返回</a></p>
     </div>
 </div>
 <script th:inline="javascript" th:if="${shouldCountDown}">
@@ -21,7 +21,7 @@
     $(document).ready(function () {
         window.setInterval(function () {
             if (count <= 0) {
-                location.href = "[( ${callBack} )]";
+                location.href = "[( @{${callBack}} )]";
             } else {
                 count--;
                 document.getElementById("counter").innerHTML = String(count);

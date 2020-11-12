@@ -10,5 +10,11 @@
         <property name="serverTimezone" value="GMT+8" />
       </driver-properties>
     </data-source>
+    <data-source source="LOCAL" name="icommerce-new@localhost" uuid="fbf1ee69-8e92-4752-ba9f-334ab1f6afa1">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/icommerce-new</jdbc-url>
+    </data-source>
   </component>
 </project>

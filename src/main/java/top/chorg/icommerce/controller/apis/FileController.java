@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import top.chorg.icommerce.bean.dto.ApiResponse;
 import top.chorg.icommerce.bean.dto.FileUploadResult;
+import top.chorg.icommerce.dao.impl.FileDaoImpl;
 import top.chorg.icommerce.service.FileService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +17,7 @@ public class FileController {
 
     private final FileService fileService;
 
-    public FileController(FileService fileService) {
+    public FileController(FileService fileService, FileDaoImpl fileDao) {
         this.fileService = fileService;
     }
 
