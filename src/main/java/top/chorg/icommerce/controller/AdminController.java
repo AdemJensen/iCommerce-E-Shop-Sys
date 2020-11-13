@@ -21,4 +21,10 @@ public class AdminController {
         return "admin/dashboard";
     }
 
+    @RequestMapping(value = "file")
+    public String file(Model model) {
+        model.addAttribute("general", generalContext);
+        return "admin/fileManage";
+    }
+
 }

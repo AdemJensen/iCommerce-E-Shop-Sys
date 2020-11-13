@@ -2,9 +2,9 @@ package top.chorg.icommerce.bean.dto;
 
 public class ApiResponse<T> {
 
-    private int res;
-    private String msg;
-    private T obj;
+    private final int res;
+    private final String msg;
+    private final T obj;
 
     public ApiResponse(int res, String msg, T obj) {
         this.res = res;
@@ -16,23 +16,20 @@ public class ApiResponse<T> {
         return res;
     }
 
-    public void setRes(int res) {
-        this.res = res;
-    }
-
     public String getMsg() {
         return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
     }
 
     public T getObj() {
         return obj;
     }
 
-    public void setObj(T obj) {
-        this.obj = obj;
+    @Override
+    public String toString() {
+        return "ApiResponse{" +
+                "res=" + res +
+                ", msg='" + msg + '\'' +
+                ", obj=" + (obj == null ? "NULL" : obj.toString()) +
+                '}';
     }
 }

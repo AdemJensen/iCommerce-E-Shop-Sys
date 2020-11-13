@@ -10,13 +10,13 @@ public class ResponseMaker {
 
     public static <E> ApiResponse<E> success(E obj) {
         ApiResponse<E> result = make(0, "OK", obj);
-        LOG.info("A success response has been made: " + result);
+        LOG.debug("A success response has been made: " + result);
         return result;
     }
 
     public static <E> ApiResponse<E> error(int res, String msg, E obj) {
         ApiResponse<E> result = make(res, msg, obj);
-        LOG.warn("An error response has been made: " + result);
+        LOG.debug("An error response has been made: " + result);
         return result;
     }
 

@@ -11,6 +11,7 @@ import top.chorg.icommerce.bean.dto.Admin;
 import top.chorg.icommerce.bean.dto.AdminType;
 import top.chorg.icommerce.bean.model.AdminModel;
 import top.chorg.icommerce.dao.AuthDao;
+import top.chorg.icommerce.dao.mapper.AdminMapper;
 import top.chorg.icommerce.service.impl.AuthServiceImpl;
 
 import java.sql.*;
@@ -106,8 +107,7 @@ public class AuthDaoImpl implements AuthDao {
         try {
             AdminModel adminModel = dbTemplate.queryForObject(
                     "SELECT a_id, a_username, a_email, a_nickname, a_type, a_reg_time FROM admins WHERE a_id=?",
-                    new Object[] {id},
-                    AdminModel.class
+                    new Object[] {id}, new AdminMapper()
             );
             if (adminModel == null) throw new NullPointerException();
             return adminModel.getDto(this);

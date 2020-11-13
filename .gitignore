@@ -38,3 +38,5 @@ out/
 application-prod.properties
 application-dev.properties
 application-test.properties
+
+/resources

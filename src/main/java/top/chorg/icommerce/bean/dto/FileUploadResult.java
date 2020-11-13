@@ -2,27 +2,14 @@ package top.chorg.icommerce.bean.dto;
 
 public class FileUploadResult {
 
-    private String fileId;
-    private String fileUrl;
+    private final String fileCode;
 
-    public FileUploadResult(String fileId, String fileUrl) {
-        this.fileId = fileId;
-        this.fileUrl = fileUrl;
+    public FileUploadResult(String fileCode) {
+        this.fileCode = fileCode;
     }
 
-    public String getFileId() {
-        return fileId;
+    public String getFileCode() {
+        return fileCode;
     }
 
-    public void setFileId(String fileId) {
-        this.fileId = fileId;
-    }
-
-    public String getFileUrl() {
-        return fileUrl;
-    }
-
-    public void setFileUrl(String fileUrl) {
-        this.fileUrl = fileUrl;
-    }
 }
