@@ -8,7 +8,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import top.chorg.icommerce.bean.dto.Admin;
-import top.chorg.icommerce.bean.dto.AdminType;
+import top.chorg.icommerce.common.enums.AdminType;
 import top.chorg.icommerce.bean.model.AdminModel;
 import top.chorg.icommerce.dao.AuthDao;
 import top.chorg.icommerce.dao.mapper.AdminMapper;
@@ -141,6 +141,39 @@ public class AuthDaoImpl implements AuthDao {
                 return AdminType.NormalAdmin;
             default:
                 return AdminType.BannedAdmin;
+        }
+    }
+
+    @Override
+    public String getCustomerNickname(int customerId) {
+        if (customerId <= 0) return null;
+        try {
+            // TODO: Customer nickname.
+            return null;
+        } catch (DataAccessException | NullPointerException e) {
+            LOG.debug(
+                    "Got `{}` exception when getting customer nickname, param is (\"{}\")",
+                    e.toString(), customerId
+            );
+            return null;  // 出现错误，如密码错误，或者未知错误
+        }
+    }
+
+    @Override
+    public String getAdminNickname(int adminId) {
+        if (adminId <= 0) return null;
+        try {
+            return dbTemplate.queryForObject(
+                    "SELECT a_nickname FROM admins WHERE a_id=?",
+                    new Object[] {adminId},
+                    String.class
+            );
+        } catch (DataAccessException | NullPointerException e) {
+            LOG.debug(
+                    "Got `{}` exception when getting customer nickname, param is (\"{}\")",
+                    e.toString(), adminId
+            );
+            return null;  // 用户编号无效
         }
     }
 

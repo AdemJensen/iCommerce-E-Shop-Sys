@@ -1,4 +1,4 @@
-package top.chorg.icommerce.bean.dto;
+package top.chorg.icommerce.common.enums;
 
 public enum AdminType {
 

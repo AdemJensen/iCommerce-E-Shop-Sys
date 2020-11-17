@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 import top.chorg.icommerce.bean.dto.ApiResponse;
 import top.chorg.icommerce.bean.dto.FileUploadResult;
+import top.chorg.icommerce.common.enums.UserType;
 
 public interface FileService {
 
@@ -23,4 +24,24 @@ public interface FileService {
      * @return File entity object.
      */
     ResponseEntity<byte[]> download(String code);
+
+    /**
+     * Store a uploaded avatar, no DB storage.
+     *
+     * @param userType The type of requester
+     * @param userId The id of requester. Admin or Customer id.
+     * @param file File object.
+     * @return API format response.
+     */
+    ApiResponse<FileUploadResult> uploadAvatar(UserType userType, int userId, MultipartFile file);
+
+    /**
+     * Return a avatar file entity object by filename directly.
+     *
+     * @param userType The type of requester
+     * @param fileName The hashed file name.
+     *                 CAUTION: this name rule should be identical to the upload fileName rules.
+     * @return File entity object.
+     */
+    ResponseEntity<byte[]> downloadAvatar(UserType userType, String fileName);
 }

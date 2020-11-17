@@ -12,4 +12,10 @@ public class FileUploadResult {
         return fileCode;
     }
 
+    @Override
+    public String toString() {
+        return "FileUploadResult{" +
+                "fileCode='" + fileCode + '\'' +
+                '}';
+    }
 }

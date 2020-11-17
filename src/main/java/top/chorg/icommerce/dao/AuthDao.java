@@ -1,7 +1,7 @@
 package top.chorg.icommerce.dao;
 
 import top.chorg.icommerce.bean.dto.Admin;
-import top.chorg.icommerce.bean.dto.AdminType;
+import top.chorg.icommerce.common.enums.AdminType;
 
 public interface AuthDao {
 
@@ -64,5 +64,20 @@ public interface AuthDao {
      */
     AdminType translateAdminType(String adminType);
 
+    /**
+     * Get the nickname of the customer.
+     *
+     * @param customerId The id of customer.
+     * @return The nickname of customer.
+     */
+    String getCustomerNickname(int customerId);
+
+    /**
+     * Get the nickname of the admin.
+     *
+     * @param adminId The id of admin.
+     * @return The nickname of admin.
+     */
+    String getAdminNickname(int adminId);
 
 }

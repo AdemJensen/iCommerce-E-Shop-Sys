@@ -3,8 +3,7 @@ package top.chorg.icommerce.service.impl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import top.chorg.icommerce.bean.dto.Admin;
-import top.chorg.icommerce.bean.dto.AdminType;
+import top.chorg.icommerce.common.enums.AdminType;
 import top.chorg.icommerce.common.AuthSession;
 import top.chorg.icommerce.dao.AuthDao;
 import top.chorg.icommerce.service.AuthService;
@@ -38,6 +37,19 @@ public class AuthServiceImpl implements AuthService {
         return id;
     }
 
+    @Override
+    public int exitUser(HttpSession session) {
+        if (authSession.getSessionUserType(session) == null) {
+            return -1;
+        }
+        if (authSession.isAdminAuthSessionValid(session)) {
+            authSession.clearAdminSession(session);
+        }
+        if (authSession.isCustomerAuthSessionValid(session)) {
+            authSession.clearCustomerSession(session);
+        }
+        return 0;
+    }
 
 
     @Override

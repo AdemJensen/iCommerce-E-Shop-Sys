@@ -1,5 +1,7 @@
 package top.chorg.icommerce.bean.dto;
 
+import top.chorg.icommerce.common.enums.AdminType;
+
 import java.util.Date;
 
 public class Admin {

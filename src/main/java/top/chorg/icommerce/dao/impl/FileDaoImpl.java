@@ -2,12 +2,10 @@ package top.chorg.icommerce.dao.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-import top.chorg.icommerce.common.utils.MD5;
-import top.chorg.icommerce.common.utils.RandomStrings;
+import top.chorg.icommerce.common.StringRules;
 import top.chorg.icommerce.dao.FileDao;
 import top.chorg.icommerce.service.impl.FileServiceImpl;
 
@@ -38,7 +36,7 @@ public class FileDaoImpl implements FileDao {
 
     @Override
     public String insertFileRecord(String filename, int uploader) {
-        String fileCode = MD5.encode(filename + uploader + RandomStrings.getRandomString(40));
+        String fileCode = StringRules.getAdminUploadFilename(filename, uploader);
         try {
             dbTemplate.update(
                     "INSERT INTO files (f_code, f_name, uploader) VALUES (?, ?, ?)",
@@ -50,8 +48,6 @@ public class FileDaoImpl implements FileDao {
                     "generated code is \"{}\"", e.toString(), filename, uploader, fileCode);
             return null;
         }
-
-
 
     }
 }

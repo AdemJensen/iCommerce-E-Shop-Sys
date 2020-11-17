@@ -66,11 +66,11 @@
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜索</button>
             </form>
         </div>
-        <div class="nav-item dropdown" th:if="${T(top.chorg.icommerce.TestStaticClass).successAuthTest(session)}"> <!-- isCustomer -->
+        <div class="nav-item dropdown" th:if="${general.getCurrentUserType(#session)} eq 'Customer'"> <!-- isCustomer -->
             <div class="align-self-sm-end nav-item p-1" id="userDropdownLink"
                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img src="" th:src="${T(top.chorg.icommerce.TestStaticClass).getOkStr(session)}" alt="Avatar" style="height: 30px; border-radius: 100%"/>
-                <label class="mx-2 my-0">TestUser</label>
+                <img src="" th:src="false" alt="Avatar" style="height: 30px; border-radius: 100%"/>
+                <label class="mx-2 my-0">[[ ${general.authSession.getCustomerNickname(#session)} ]]</label>
             </div>
             <div class="dropdown-menu" aria-labelledby="userDropdownLink" style="left: auto; right: 0;">
                 <a class="dropdown-item disabled" href="#">个人主页</a>
@@ -81,13 +81,14 @@
             </div>
         </div>
 
-        <div class="nav-item dropdown" th:if="${T(top.chorg.icommerce.TestStaticClass).failureAuthTest(session)}"> <!-- isAdmin -->
+        <div class="nav-item dropdown" th:if="${general.getCurrentUserType(#session)} eq 'Admin'"> <!-- isAdmin -->
             <div class="align-self-sm-end nav-item p-1" id="adminDropdownLink"
                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <img src="" th:src="${T(top.chorg.icommerce.TestStaticClass).getOkStr(session)}" alt="Avatar" style="height: 30px; border-radius: 100%"/>
-                <label class="mx-2 my-0"><%= AuthInfo.getAdminUsername(session) %>【权限级别<%= AuthInfo.getAdminLevel(session) %>管理员】</label>
+                <label class="mx-2 my-0">[[ ${general.authSession.getAdminNickname(#session)} ]]【管理员】</label>
             </div>
             <div class="dropdown-menu" aria-labelledby="adminDropdownLink" style="left: auto; right: 0;">
+                <a class="dropdown-item" th:href="@{/admin/dashboard}">Dashboard</a>
                 <a class="dropdown-item" th:href="@{/admin/order}">订单管理</a>
                 <a class="dropdown-item" th:href="@{/admin/item}">商品管理</a>
                 <a class="dropdown-item" th:href="@{/admin/type}">商品类别管理</a>
@@ -97,7 +98,7 @@
                 <a class="dropdown-item" th:href="@{/exit}">退出登录</a>
             </div>
         </div>
-        <div class="align-self-sm-end" th:if="${T(top.chorg.icommerce.TestStaticClass).failureAuthTest(session)}"> <!-- otherwise -->
+        <div class="align-self-sm-end" th:if="${general.getCurrentUserType(#session)} eq 'null'"> <!-- otherwise -->
             <a th:href="@{/login}" class="btn btn-light">登录</a>
             <a th:href="@{/register}" class="btn btn-primary text-white">注册</a>
         </div>

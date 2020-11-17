@@ -1,20 +1,17 @@
 package top.chorg.icommerce.common.utils;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.Set;
 
-public class Request {
+public class NavigationUtils {
     public static String post(String url, String parameters) throws IOException {
         URL postUrl = new URL(url);
         HttpURLConnection connection = (HttpURLConnection) postUrl.openConnection();
@@ -45,42 +42,6 @@ public class Request {
         return result.toString();
     }
 
-    /**
-     * 在不改变地址栏的情况下将页面跳转到info界面。
-     *
-     * @param request request对象，用于获取info页面地址
-     * @param simple 是否使用简单信息页面，复杂信息页面需要 config 文件到位
-     * @param type  信息类型，可以是success, warning, error三种之一。
-     * @param title 显示在标题栏上的文字内容
-     * @param info  显示在主页面的h1内容，颜色由type决定
-     * @param hint  显示在h1下面的内容，一般显示具体错误信息
-     * @param callBack  自动跳转页面目标。
-     *                  如果type不为success，则不会显示callBack，也不会自动跳转。
-     *                  如果不想设置跳转，请传入空字符串。
-     * @throws IOException 获取信息时出现错误。
-     */
-    public static void becomeInfoPage(HttpServletRequest request, HttpServletResponse response, boolean simple,
-                                      String type, String title, String info, String hint, String callBack
-    ) throws IOException, ServletException {
-        //if (!Config.configFileExists(request)) simple = true;
-        String content = "info_type=" + URLEncoder.encode(type, String.valueOf(StandardCharsets.UTF_8));
-        content += "&title="  + URLEncoder.encode(title, String.valueOf(StandardCharsets.UTF_8));
-        content += "&info_str="  + URLEncoder.encode(info, String.valueOf(StandardCharsets.UTF_8));
-        content += "&info_hint="  + URLEncoder.encode(hint, String.valueOf(StandardCharsets.UTF_8));
-        if (callBack != null && callBack.length() > 0)
-            content += "&call_back="  + URLEncoder.encode(callBack, String.valueOf(StandardCharsets.UTF_8));
-        if (simple) {
-            request.getRequestDispatcher("/info-min?" + content).forward(request, response);
-        } else {
-            request.getRequestDispatcher("/info?" + content).forward(request, response);
-        }
-    }
-    public static void becomeInfoPage(HttpServletRequest request, HttpServletResponse response,
-                                      String type, String title, String info, String hint
-    ) throws IOException, ServletException {
-        becomeInfoPage(request, response, true, type, title, info, hint, "-1");
-    }
-
     public static void setLastVis(HttpServletRequest request) {
         StringBuilder builder = new StringBuilder("?");
         Map<String, String[]> map = request.getParameterMap();
@@ -97,9 +58,9 @@ public class Request {
         builder.replace(builder.length() - 1, builder.length(), "");
         request.getSession(true).setAttribute("LAST_VIS", request.getRequestURI() + builder.toString());
     }
-    public static String getLastVis(HttpServletRequest request) {
-        Object obj = request.getSession(true).getAttribute("LAST_VIS");
-        if (obj == null) return request.getContextPath();
+    public static String getLastVis(HttpSession session) {
+        Object obj = session.getAttribute("LAST_VIS");
+        if (obj == null) return "/";
         else return (String) obj;
     }
 

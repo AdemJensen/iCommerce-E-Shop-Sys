@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<head>
+    <title>Avatar Controller Test</title>
+</head>
+<body>
+
+<form method="post" th:action="@{/api/avatar/upload}" id="fileUploadForm" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="fileUpload">提示：一次只能上传一个文件</label>
+        <input type="file" class="form-control-file" name="file" id="fileUpload" />
+        <button type="submit">提交</button>
+    </div>
+</form>
+
+</body>
