@@ -81,6 +81,7 @@
             </div>
         </div>
 
+        <!--/*@thymesVar id="general" type="top.chorg.icommerce.common.GeneralContext"*/-->
         <div class="nav-item dropdown" th:if="${general.getCurrentUserType(#session)} eq 'Admin'"> <!-- isAdmin -->
             <div class="align-self-sm-end nav-item p-1" id="adminDropdownLink"
                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 import top.chorg.icommerce.bean.dto.ApiResponse;
 import top.chorg.icommerce.bean.dto.FileUploadResult;
@@ -168,6 +169,16 @@ public class FileServiceImpl implements FileService {
                 return ResponseEntity.badRequest().body(null);
         }
         return getFileEntity(realPath, fileName + ".png");
+    }
+
+    @Override
+    public String getFileList(Model model, int page) {
+        model.addAttribute("fileList", fileDao.getFileList(15, page - 1));
+        int totalFiles = fileDao.getFileNumber();
+        model.addAttribute("totalFiles", totalFiles);
+        model.addAttribute("totalPage", totalFiles / 15);
+        model.addAttribute("currentPage", page);
+        return "admin/fileManage";
     }
 
     private ResponseEntity<byte[]> getFileEntity(String realPath, String fileName) {

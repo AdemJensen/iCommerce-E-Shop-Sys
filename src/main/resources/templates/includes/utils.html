@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html class="min-vh-100" xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<head>
+    <title></title>
+</head>
+
+<body class="min-vh-100">
+
+<table class="table">
+    <thead class="thead-light">
+    <tr>
+        <th scope="col">Code</th>
+        <th scope="col">文件名</th>
+        <th scope="col">上传日期</th>
+        <th scope="col">上传人</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <th scope="row">1</th>
+        <td>Mark</td>
+        <td>Otto</td>
+        <td>@mdo</td>
+    </tr>
+    <tr>
+        <th scope="row">2</th>
+        <td>Jacob</td>
+        <td>Thornton</td>
+        <td>@fat</td>
+    </tr>
+    <tr>
+        <th scope="row">3</th>
+        <td>Larry</td>
+        <td>the Bird</td>
+        <td>@twitter</td>
+    </tr>
+    </tbody>
+</table>
+
+<nav th:fragment="paginator(currentPage, totalPage, switchUrl)" aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        <li th:class="'page-item ' + ${currentPage <= 1 ? 'disabled' : ''}">
+            <a class="page-link" href="#" th:href="@{${T(String).format(switchUrl, currentPage - 1)}}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <li th:if="${(totalPage >= 5) and (currentPage == totalPage)}" class="page-item"><a class="page-link" href="#" th:href="@{${T(String).format(switchUrl, currentPage - 4)}}">[[ ${currentPage - 4} ]]</a></li>
+        <li th:if="${(totalPage >= 4) and (currentPage >= totalPage - 1)}" class="page-item"><a class="page-link" href="#" th:href="@{${T(String).format(switchUrl, currentPage - 3)}}">[[ ${currentPage - 3} ]]</a></li>
+        <li th:if="${currentPage - 2 >= 1}" class="page-item"><a class="page-link" href="#" th:href="@{${T(String).format(switchUrl, currentPage - 2)}}">[[ ${currentPage - 2} ]]</a></li>
+        <li th:if="${currentPage - 1 >= 1}" class="page-item"><a class="page-link" href="#" th:href="@{${T(String).format(switchUrl, currentPage - 1)}}">[[ ${currentPage - 1} ]]</a></li>
+        <li class="page-item active"><a class="page-link" aria-current="page" href="#" th:href="@{${T(String).format(switchUrl, currentPage)}}">[[ ${currentPage} ]] <span class="sr-only">(current)</span></a></li>
+        <li th:if="${currentPage + 1 <= totalPage}" class="page-item"><a class="page-link" href="#" th:href="@{${T(String).format(switchUrl, currentPage + 1)}}">[[ ${currentPage + 1} ]]</a></li>
+        <li th:if="${currentPage + 2 <= totalPage}" class="page-item"><a class="page-link" href="#" th:href="@{${T(String).format(switchUrl, currentPage + 2)}}">[[ ${currentPage + 2} ]]</a></li>
+        <li th:if="${(totalPage >= 4) and (currentPage <= 2)}" class="page-item"><a class="page-link" href="#" th:href="@{${T(String).format(switchUrl, currentPage + 3)}}">[[ ${currentPage + 3} ]]</a></li>
+        <li th:if="${(totalPage >= 5) and (currentPage == 1)}" class="page-item"><a class="page-link" href="#" th:href="@{${T(String).format(switchUrl, currentPage + 4)}}">[[ ${currentPage + 4} ]]</a></li>
+        <li th:class="'page-item ' + ${currentPage >= totalPage ? 'disabled' : ''}">
+            <a class="page-link" href="#" th:href="@{${T(String).format(switchUrl, currentPage + 1)}}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+</body>
+</html>

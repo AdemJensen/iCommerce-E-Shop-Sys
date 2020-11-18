@@ -4,6 +4,9 @@ import top.chorg.icommerce.common.enums.UserType;
 import top.chorg.icommerce.common.utils.MD5;
 import top.chorg.icommerce.common.utils.RandomStrings;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class StringRules {
 
     public static String getUserAvatarUrlPrefixString(UserType userType) {
@@ -34,6 +37,10 @@ public class StringRules {
 
     public static String getAdminUploadFilename(String filename, int uploader) {
         return MD5.encode(filename + uploader + RandomStrings.getRandomString(40));
+    }
+
+    public static String getDateTimeString(Date date) {
+        return new SimpleDateFormat("yyyy-MM-dd HH:mm").format(date);
     }
 
 }

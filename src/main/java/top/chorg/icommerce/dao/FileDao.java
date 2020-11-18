@@ -1,5 +1,9 @@
 package top.chorg.icommerce.dao;
 
+import top.chorg.icommerce.bean.model.FileListItem;
+
+import java.util.List;
+
 public interface FileDao {
 
     /**
@@ -19,5 +23,22 @@ public interface FileDao {
      * @return The file access code.
      */
     String insertFileRecord(String filename, int uploader);
+
+
+    /**
+     * Get the uploaded file list.
+     *
+     * @param pageLength The length of page.
+     * @param page Page number. Starts from 0.
+     * @return The file list.
+     */
+    List<FileListItem> getFileList(int pageLength, int page);
+
+    /**
+     * Get the count of uploaded file list.
+     *
+     * @return The count.
+     */
+    int getFileNumber();
 
 }

@@ -47,7 +47,7 @@
             success: function (arg) {
                 // console.log(arg)
                 if (arg.res === 0) {
-                    showHintModal("success", "上传成功", "所选文件已上传成功");
+                    showHintModal("success", "上传成功", "所选文件已上传成功，请刷新页面以查看上传的文件");
                     $("#fileUpload").val('');
                 } else {
                     showHintModal("danger", "上传失败", "错误：" + arg.msg);
@@ -106,7 +106,7 @@
                         <p id="uploadResultHintContent">[Modal Content]</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
                     </div>
                 </div>
             </div>
@@ -121,27 +121,24 @@
                 <th scope="col">上传人</th>
             </tr>
             </thead>
-            <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
+            <!--/*@thymesVar id="fileList" type="List<top.chorg.icommerce.bean.model.FileListItem>"*/-->
+            <tbody id="fileListArea">
+            <tr th:each="fileItemEntity : ${fileList}">
+                <th scope="row">[[ ${fileItemEntity.code} ]]</th>
+                <td><a target="_blank" href="#" th:href="@{/api/file/get/} + ${fileItemEntity.code}">[[ ${fileItemEntity.filename} ]]</a></td>
+                <td>[[ ${T(top.chorg.icommerce.common.StringRules).getDateTimeString(fileItemEntity.uploadTime)} ]]</td>
+                <td>[[ ${fileItemEntity.uploaderDisplayableName} ]]</td>
             </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
+            <!--/*@thymesVar id="totalFiles" type="int"*/-->
+            <tr id="noDataSpacing" th:if="${totalFiles} == 0">
+                <th class="text-center" colspan="233" scope="row">无数据</th>
             </tr>
             </tbody>
         </table>
+
+        <!--/*@thymesVar id="currentPage" type="int"*/-->
+        <!--/*@thymesVar id="totalPage" type="int"*/-->
+        <div th:include="includes/utils :: paginator(${currentPage}, ${totalPage}, '/admin/file?page=%s')"></div>
 
     </div>
 </div>
