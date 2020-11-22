@@ -1,0 +1,90 @@
+
+/* slideshow 1 */	
+
+.ss1_wrapper { position:relative; width:900px; height:400px; margin:0 0 20px 0; }
+.ss1_wrapper .slideshow { position:relative; width:900px; height:400px; }
+	
+	.ss1_wrapper .slideshow_item { width:900px; height:400px; }
+	.ss1_wrapper .slideshow_item .data { display:none; }	
+	
+	.ss1_wrapper a.slideshow_prev { position:absolute; left:30px; bottom:180px; z-index:10; width:40px; height:46px; outline:none; background:url(trans-black-70.png); }
+		.ss1_wrapper a.slideshow_prev:hover { background:#000; }
+		.ss1_wrapper a.slideshow_prev span { display:block; width:40px; height:46px; background:url(arrows.png) no-repeat -55px 50%; text-indent:-9999px; }
+		
+	.ss1_wrapper a.slideshow_next { position:absolute; left:70px; bottom:180px; z-index:10; width:40px; height:46px; outline:none; background:url(trans-black-70.png);}
+		.ss1_wrapper a.slideshow_next:hover { background:#000; }
+		.ss1_wrapper a.slideshow_next span { display:block; width:40px; height:46px; background:url(arrows.png) no-repeat -5px 50%; text-indent:-9999px; }
+	
+	.ss1_wrapper .slideshow_paging { position:absolute; bottom:10px; right:545px; z-index:11; font-size:12px; }
+		.ss1_wrapper .slideshow_paging a { display:block; float:left; margin:0 0 0 2px; padding:4px 7px; color:#ccc; }
+			.ss1_wrapper .slideshow_paging a:hover { color:#fff }
+			.ss1_wrapper .slideshow_paging a.activeSlide { background:#eee; color:#222 }
+	
+	.ss1_wrapper .slideshow_box { position:absolute; left:30px; bottom:0; background:url(trans-black-70.png); width:340px; height:180px; z-index:10; }
+		.ss1_wrapper .slideshow_box .data { padding:15px; color:#ccc;  }
+		.ss1_wrapper .slideshow_box .data h4 { color:#fff; font:bold 18px arial, sans-serif; padding:0; margin:0 0 10px 0; }
+		.ss1_wrapper .slideshow_box .data p { padding:0; margin:0; line-height:140%;}
+		.ss1_wrapper .slideshow_box .data a { color:#fff; }
+		
+	
+
+
+/* slideshow 2 */
+	
+.ss2_wrapper { position:relative; width:100%; height:400px; margin:0 0 20px 0; overflow:hidden; }
+.ss2_wrapper .slideshow { position:relative; width:100%; height:400px; }
+	
+	.ss2_wrapper .slideshow_item { width:100%; height:400px; }
+	.ss2_wrapper .slideshow_item .data { display:none; }	
+	
+	.ss2_wrapper a.slideshow_prev { position:absolute; left:-40px; top:160px; z-index:10; width:40px; height:46px; outline:none; background:url(trans-black-70.png); -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; -moz-box-shadow: 0 0 2px #222; -webkit-box-shadow: 0 0 2px #222; box-shadow: 0 0 2px #222;  }
+		.ss2_wrapper a.slideshow_prev:hover { background:#000; }
+		.ss2_wrapper a.slideshow_prev span { display:block; width:40px; height:46px; background:url(arrows.png) no-repeat -55px 50%; text-indent:-9999px; }
+		
+	.ss2_wrapper a.slideshow_next { position:absolute; right:-40px; top:160px; z-index:10; width:40px; height:46px; outline:none; background:url(trans-black-70.png); -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; -moz-box-shadow: 0 0 2px #222; -webkit-box-shadow: 0 0 2px #222; box-shadow: 0 0 2px #222;  }
+		.ss2_wrapper a.slideshow_next:hover { background:#000; }
+		.ss2_wrapper a.slideshow_next span { display:block; width:40px; height:46px; background:url(arrows.png) no-repeat -5px 50%; text-indent:-9999px; }
+	
+	.ss2_wrapper .slideshow_paging { position:absolute; top:10px; right:10px; z-index:11; font-size:12px; padding:3px 2px; background:url(trans-black-70.png); -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; -moz-box-shadow: 0 0 2px #222; -webkit-box-shadow: 0 0 2px #222; box-shadow: 0 0 2px #222; }
+		.ss2_wrapper .slideshow_paging a { display:block; float:left; margin:0 1px; padding:3px 7px; color:#ccc; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; }
+			.ss2_wrapper .slideshow_paging a:hover { color:#fff }
+			.ss2_wrapper .slideshow_paging a.activeSlide { background:#eee; color:#222 }
+	
+	.ss2_wrapper .slideshow_box { position:absolute; left:0; bottom:0; background:url(trans-black-70.png); width:100%; height:110px; z-index:10;  }
+		.ss2_wrapper .slideshow_box .data { padding:15px 20px; color:#ccc;  }
+		.ss2_wrapper .slideshow_box .data h4 { color:#fff; font:bold 20px arial, sans-serif; padding:0; margin:0 0 10px 0; }
+		.ss2_wrapper .slideshow_box .data p { padding:0; margin:0; line-height:140%;}
+		.ss2_wrapper .slideshow_box .data a { color:#fff; }
+		
+		
+		
+
+/* slideshow 3 */	
+
+.ss3_wrapper { position:relative; width:900px; height:400px; margin:0 0 20px 0; }
+.ss3_wrapper .slideshow { position:relative; width:900px; height:400px; }
+	
+	.ss3_wrapper .slideshow_item { width:900px; height:400px; }
+	.ss3_wrapper .slideshow_item .data, .ss3_wrapper .slideshow_item .thumb { display:none; }	
+	
+	.ss3_wrapper a.slideshow_prev { position:absolute; left:0px; bottom:25px; z-index:12; width:50px; height:50px; outline:none;  }
+		.ss3_wrapper a.slideshow_prev span { display:block; width:50px; height:50px; background:url(arrows.png) no-repeat -51px 50%; text-indent:-9999px; }
+		
+	.ss3_wrapper a.slideshow_next { position:absolute; right:0px; bottom:25px; z-index:12; width:50px; height:50px; outline:none;  }
+		.ss3_wrapper a.slideshow_next span { display:block; width:50px; height:50px; background:url(arrows.png) no-repeat 1px 50%; text-indent:-9999px; }
+	
+	.ss3_wrapper .slideshow_paging { position:absolute; bottom:0; left:0; width:800px; height:85px; padding:10px 50px 0 50px; margin:0; z-index:11; background:url(trans-black-60.png); font-size:12px; list-style:none; }
+		.ss3_wrapper .slideshow_paging li { display:block; float:left; margin:0; padding:0; }
+		.ss3_wrapper .slideshow_paging a { display:block; float:left; margin:0 0 0 17px; padding:0; color:#ccc; }
+		.ss3_wrapper .slideshow_paging a.first { margin-left:0; }
+		.ss3_wrapper .slideshow_paging a img { border:3px solid #111; }
+			.ss3_wrapper .slideshow_paging a:hover { color:#fff }
+			.ss3_wrapper .slideshow_paging .activeSlide img { border:3px solid #ddd; }
+	
+	.ss3_wrapper .slideshow_box { position:absolute; left:0; bottom:95px; background:url(trans-black-60.png); width:900px;  z-index:10; }
+		.ss3_wrapper .slideshow_box .data { padding:10px 50px 0 50px; color:#ccc;  }
+		.ss3_wrapper .slideshow_box .data h4 { color:#fff; font:bold 18px arial, sans-serif; padding:0; margin:0; }
+		.ss3_wrapper .slideshow_box .data a { color:#fff; }
+		
+	
+/*www.jq22.com*/

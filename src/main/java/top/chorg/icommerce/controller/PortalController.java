@@ -7,18 +7,18 @@ import top.chorg.icommerce.common.GeneralContext;
 
 @Controller
 @RequestMapping(value = "/")
-public class IndexController {
+public class PortalController {
 
     final GeneralContext generalContext;
 
-    public IndexController(GeneralContext generalContext) {
+    public PortalController(GeneralContext generalContext) {
         this.generalContext = generalContext;
     }
 
     @RequestMapping(value = "")
     public String index(Model model) {
         model.addAttribute("general", generalContext);
-        return "sample/sampleView";
+        return "portal/index";
     }
 
 }

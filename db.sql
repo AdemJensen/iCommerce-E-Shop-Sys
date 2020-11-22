@@ -125,14 +125,17 @@ DROP TABLE IF EXISTS `customers`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `customers` (
   `c_id` int(11) NOT NULL AUTO_INCREMENT,
+  `c_username` varchar(45) NOT NULL,
   `password` varchar(45) NOT NULL,
   `c_name` varchar(45) DEFAULT NULL,
-  `c_gender` int(11) DEFAULT NULL,
+  `c_nickname` varchar(45) NOT NULL,
+  `c_gender` varchar(1) NOT NULL DEFAULT 'U' COMMENT 'U = undefined\nM = male\nF = female',
   `c_birthday` date DEFAULT NULL,
   `c_reg_time` datetime NOT NULL,
   `c_type` varchar(1) NOT NULL DEFAULT 'U' COMMENT 'U = Normal User.\nV = VIP (preserved)\nB = Banned',
   PRIMARY KEY (`c_id`),
-  UNIQUE KEY `c_id_UNIQUE` (`c_id`)
+  UNIQUE KEY `c_id_UNIQUE` (`c_id`),
+  UNIQUE KEY `c_username_UNIQUE` (`c_username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -463,4 +466,4 @@ CREATE TABLE `preo_orders` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-11-18 17:20:00
+-- Dump completed on 2020-11-18 17:24:49

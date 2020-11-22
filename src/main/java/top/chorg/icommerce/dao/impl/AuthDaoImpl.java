@@ -8,10 +8,15 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import top.chorg.icommerce.bean.dto.Admin;
+import top.chorg.icommerce.bean.dto.Customer;
+import top.chorg.icommerce.bean.model.CustomerModel;
 import top.chorg.icommerce.common.enums.AdminType;
 import top.chorg.icommerce.bean.model.AdminModel;
+import top.chorg.icommerce.common.enums.CustomerGender;
+import top.chorg.icommerce.common.enums.CustomerType;
 import top.chorg.icommerce.dao.AuthDao;
 import top.chorg.icommerce.dao.mapper.AdminMapper;
+import top.chorg.icommerce.dao.mapper.CustomerMapper;
 import top.chorg.icommerce.service.impl.AuthServiceImpl;
 
 import java.sql.*;
@@ -30,13 +35,19 @@ public class AuthDaoImpl implements AuthDao {
     @Override
     public int authenticateCustomer(String username, String password) {
         try {
-            return -1;
+            Integer id = dbTemplate.queryForObject(
+                    "SELECT c_id FROM customers WHERE c_username=? AND password=?",
+                    new Object[] {username, password},
+                    Integer.class
+            );
+            if (id == null) throw new NullPointerException();
+            return id;
         } catch (DataAccessException | NullPointerException e) {
             LOG.debug(
                     "Got `{}` exception when authenticating customer, param is (\"{}\", \"{}\")",
-                    e.getMessage(), username, password
+                    e.toString(), username, password
             );
-            return -1;  // 出现未知错误
+            return -1;  // 出现错误，如密码错误，或者未知错误
         }
     }
 
@@ -61,7 +72,30 @@ public class AuthDaoImpl implements AuthDao {
 
     @Override
     public int addCustomer(String email, String username, String password) {
-        return 0;
+        try {
+            KeyHolder keyHolder = new GeneratedKeyHolder();
+            dbTemplate.update(con -> {
+                PreparedStatement ps = con.prepareStatement(
+                        "INSERT INTO customers (c_username, password, c_email, c_nickname, c_type, c_reg_time)" +
+                                " VALUES (?, ?, ?, c_username, ?, NOW())",
+                        PreparedStatement.RETURN_GENERATED_KEYS
+                );
+                ps.setString(1, username);
+                ps.setString(2, password);
+                ps.setString(3, email);
+                ps.setString(4, translateCustomerType(CustomerType.NormalCustomer));
+                return ps;
+            }, keyHolder);
+            Number id = keyHolder.getKey();
+            if (id == null) throw new NullPointerException();
+            return (int) id;
+        } catch (DataAccessException | NullPointerException e) {
+            LOG.debug(
+                    "Got `{}` exception when creating customer, param is (\"{}\", \"{}\", \"{}\")",
+                    e.toString(), email, username, password
+            );
+            return -1;  // 出现错误，如用户名已存在，或者未知错误
+        }
     }
 
     @Override
@@ -94,12 +128,40 @@ public class AuthDaoImpl implements AuthDao {
 
     @Override
     public boolean isAdminUsernameTaken(String username) {
-        return false;
+        try {
+            Integer id = dbTemplate.queryForObject(
+                    "SELECT a_id FROM admins WHERE a_username=?",
+                    new Object[] {username}, Integer.class
+            );
+            if (id == null) throw new NullPointerException();
+            return true;
+        } catch (DataAccessException | NullPointerException e) {
+            LOG.debug(
+                    "Got `{}` exception when isAdminUsernameTaken, param is (\"{}\")",
+                    e.toString(), username
+            );
+            // Notice: This might not be errors, but normal actions.
+            return false;  // 出现错误，一般是或者未知错误
+        }
     }
 
     @Override
     public boolean isCustomerUsernameTaken(String username) {
-        return false;
+        try {
+            Integer id = dbTemplate.queryForObject(
+                    "SELECT c_id FROM customers WHERE c_username=?",
+                    new Object[] {username}, Integer.class
+            );
+            if (id == null) throw new NullPointerException();
+            return true;
+        } catch (DataAccessException | NullPointerException e) {
+            LOG.debug(
+                    "Got `{}` exception when isAdminUsernameTaken, param is (\"{}\")",
+                    e.toString(), username
+            );
+            // Notice: This might not be errors, but normal actions.
+            return false;  // 出现错误，一般是或者未知错误
+        }
     }
 
     @Override
@@ -114,6 +176,25 @@ public class AuthDaoImpl implements AuthDao {
         } catch (DataAccessException | NullPointerException e) {
             LOG.error(
                     "Got `{}` exception when getAdminInfoById, param is (\"{}\")",
+                    e.toString(), id
+            );
+            return null;  // 出现错误，一般是或者未知错误
+        }
+    }
+
+    @Override
+    public Customer getCustomerInfoById(int id) {
+        try {
+            CustomerModel customerModel = dbTemplate.queryForObject(
+                    "SELECT c_id, c_username, c_name, c_nickname, c_gender, c_birthday, c_email, c_reg_time, c_type " +
+                            "FROM customers WHERE c_id=?",
+                    new Object[] {id}, new CustomerMapper()
+            );
+            if (customerModel == null) throw new NullPointerException();
+            return customerModel.getDto(this);
+        } catch (DataAccessException | NullPointerException e) {
+            LOG.error(
+                    "Got `{}` exception when getCustomerInfoById, param is (\"{}\")",
                     e.toString(), id
             );
             return null;  // 出现错误，一般是或者未知错误
@@ -145,11 +226,62 @@ public class AuthDaoImpl implements AuthDao {
     }
 
     @Override
+    public String translateCustomerType(CustomerType customerType) {
+        switch (customerType) {
+            case NormalCustomer:
+                return "N";
+            case VIPCustomer:
+                return "V";
+            default:
+                return "B";
+        }
+    }
+
+    @Override
+    public CustomerType translateCustomerType(String customerType) {
+        switch (customerType) {
+            case "N":
+                return CustomerType.NormalCustomer;
+            case "V":
+                return CustomerType.VIPCustomer;
+            default:
+                return CustomerType.BannedCustomer;
+        }
+    }
+
+    @Override
+    public String translateCustomerGender(CustomerGender customerGender) {
+        switch (customerGender) {
+            case Male:
+                return "M";
+            case Female:
+                return "F";
+            default:
+                return "U";
+        }
+    }
+
+    @Override
+    public CustomerGender translateCustomerGender(String customerGender) {
+        switch (customerGender) {
+            case "M":
+                return CustomerGender.Male;
+            case "F":
+                return CustomerGender.Female;
+            default:
+                return CustomerGender.Undefined;
+        }
+    }
+
+    @Override
     public String getCustomerNickname(int customerId) {
         if (customerId <= 0) return null;
         try {
-            // TODO: Customer nickname.
-            return null;
+            return dbTemplate.queryForObject(
+                    "SELECT c_nickname FROM customers WHERE c_id=?",
+                    new Object[] {customerId},
+                    String.class
+            );
         } catch (DataAccessException | NullPointerException e) {
             LOG.debug(
                     "Got `{}` exception when getting customer nickname, param is (\"{}\")",

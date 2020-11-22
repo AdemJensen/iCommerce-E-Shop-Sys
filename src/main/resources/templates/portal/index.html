@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html th:with="selectedTab='index'" xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<head th:include="includes/basic :: header ('首页')">
+    <title></title>
+</head>
+
+<body>
+<!--/*@thymesVar id="selectedTab" type="java.lang.String"*/-->
+<nav th:replace="includes/basic :: nav-bar (${selectedTab})"></nav>
+
+<div class="ss2_wrapper">
+    <a href="#" class="slideshow_prev"><span>Previous</span></a>
+    <a href="#" class="slideshow_next"><span>Next</span></a>
+    <div class="slideshow_paging"></div>
+    <div class="slideshow_box">
+        <div class="data"></div>
+    </div>
+    <div id="slideshow_2" class="slideshow">
+        <div class="slideshow_item">
+            <div class="image"><a href="#"><img src="" th:src="@{/api/file/get/2f2c4b7fa23e61e9bc8c856b33eed5b6}" alt="photo 2" width="100%" height="auto" /></a></div>
+            <div class="data">
+                <h4><a href="#">Donec sollicitudin enim sit</a></h4>
+                <p>Sed mollis tristique lectus vitae aliquet. Quisque vitae metus ut velit varius feugiat. Maecenas luctus pulvinar elit et viverra. Aenean vel est nulla. </p>
+            </div>
+        </div>
+        <div class="slideshow_item">
+            <div class="image"><a href="#"><img src="" th:src="@{/api/file/get/72e8e9280784f8d415acf96f9e922eb7}" alt="photo 3" width="100%" height="800px" /></a></div>
+            <div class="data">
+                <h4><a href="#">Pellentesque lacinia metus</a></h4>
+                <p>Integer pretium volutpat ligula sit amet pretium. Morbi nisi dui, rutrum ut bibendum sit amet, gravida eget dui. </p>
+            </div>
+        </div>
+        <div class="slideshow_item">
+            <div class="image"><a href="#"><img src="" th:src="@{/api/file/get/3735118d28cfc1c9556f81f8a3711e33}" alt="photo 1" width="100%" height="800px" /></a></div>
+            <div class="data">
+                <h4><a href="#">Lorem ipsum dolor sit amet</a></h4>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sollicitudin enim sit amet dolor posuere dictum. Pellentesque lacinia metus non erat auctor vehicula.</p>
+            </div>
+        </div>
+    </div>
+</div><!-- .ss2_wrapper -->
+
+<script th:inline="javascript">
+    $('#slideshow_2').cycle({
+        fx: 'fade',
+        speed:  900,
+        timeout: 5000,
+        pager: '.ss2_wrapper .slideshow_paging',
+        prev: '.ss2_wrapper .slideshow_prev',
+        next: '.ss2_wrapper .slideshow_next',
+        before: function(currSlideElement, nextSlideElement) {
+            var data = $('.data', $(nextSlideElement)).html();
+            let target = $('.ss2_wrapper .slideshow_box');
+            target.stop(true, true).animate({ bottom:'-110px'}, 400, function(){
+                $('.ss2_wrapper .slideshow_box .data').html(data);
+            });
+            target.delay(100).animate({ bottom:'0'}, 400);
+        }
+    });
+    $('.ss2_wrapper').mouseenter(function(){
+        $('#slideshow_2').cycle('pause');
+        $('.ss2_wrapper .slideshow_prev').stop(true, true).animate({ left:'20px'}, 200);
+        $('.ss2_wrapper .slideshow_next').stop(true, true).animate({ right:'20px'}, 200);
+    }).mouseleave(function(){
+        $('#slideshow_2').cycle('resume');
+        $('.ss2_wrapper .slideshow_prev').stop(true, true).animate({ left:'-40px'}, 200);
+        $('.ss2_wrapper .slideshow_next').stop(true, true).animate({ right:'-40px'}, 200);
+    });
+    $(document).ready(function () {
+
+    })
+</script>
+
+<div th:replace="includes/basic :: footer"></div>
+
+</body>
+</html>

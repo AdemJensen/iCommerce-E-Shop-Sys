@@ -2,6 +2,7 @@ package top.chorg.icommerce.common;
 
 import org.springframework.stereotype.Component;
 import top.chorg.icommerce.bean.dto.Admin;
+import top.chorg.icommerce.bean.dto.Customer;
 import top.chorg.icommerce.common.enums.UserType;
 import top.chorg.icommerce.dao.AuthDao;
 
@@ -20,14 +21,18 @@ public class AuthSession {
         Admin admin = authDao.getAdminInfoById(adminId);
         if (admin == null) return false;
         session.setAttribute("a_id", admin.getId());
-        session.setAttribute("a_level", admin.getAdminType());
+        session.setAttribute("a_type", admin.getAdminType());
         session.setAttribute("a_name", admin.getNickname());
         return true;
     }
 
     public boolean createAuthSessionForCustomer(HttpSession session, int customerId) {
-        // TODO: Customer auth session.
-        return false;
+        Customer customer = authDao.getCustomerInfoById(customerId);
+        if (customer == null) return false;
+        session.setAttribute("c_id", customer.getId());
+        session.setAttribute("c_type", customer.getType());
+        session.setAttribute("c_name", customer.getNickname());
+        return true;
     }
 
     public boolean isAdminAuthSessionValid(HttpSession session) {
@@ -74,12 +79,14 @@ public class AuthSession {
 
     public void clearAdminSession(HttpSession session) {
         session.removeAttribute("a_id");
-        session.removeAttribute("a_level");
+        session.removeAttribute("a_type");
         session.removeAttribute("a_name");
     }
 
     public void clearCustomerSession(HttpSession session) {
-        // TODO: Customer auth session.
+        session.removeAttribute("c_id");
+        session.removeAttribute("c_type");
+        session.removeAttribute("c_name");
     }
 
     /**
