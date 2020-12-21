@@ -1,7 +1,7 @@
 package top.chorg.icommerce.bean.model;
 
 public class CartItem {
-    public Item getItem() {
+    public ItemModel getItem() {
         return item;
     }
 
@@ -9,10 +9,10 @@ public class CartItem {
         return quantity;
     }
 
-    public Item item;
+    public ItemModel item;
     public int quantity;
 
-    public CartItem(Item item, int quantity) {
+    public CartItem(ItemModel item, int quantity) {
         this.item = item;
         this.quantity = quantity;
     }

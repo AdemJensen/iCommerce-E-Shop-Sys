@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html class="min-vh-100" th:with="selectedTab='none'" xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<head th:include="includes/basic :: header ('文件管理')">
+    <title></title>
+</head>
+
+<body class="min-vh-100">
+<!--/*@thymesVar id="selectedTab" type="java.lang.String"*/-->
+<nav th:replace="includes/basic :: nav-bar (${selectedTab})"></nav>
+
+<script th:inline="javascript">
+
+    function showHintModal(type, title, content) {
+        let hintModal = $("#uploadResultHintModal");
+        let hintModalHeader = $("#uploadResultHintModalHeader");
+        let hintTitle = $("#uploadResultHintTitle");
+        let hintContent = $("#uploadResultHintContent");
+        if (type === "success") {
+            hintModalHeader.removeClass("bg-danger");
+            hintModalHeader.addClass("bg-success");
+        } else if (type === "danger") {
+            hintModalHeader.removeClass("bg-success");
+            hintModalHeader.addClass("bg-danger");
+        } else {
+            hintModalHeader.removeClass("bg-danger");
+            hintModalHeader.removeClass("bg-success");
+        }
+        hintTitle.html(title);
+        hintContent.html(content);
+        hintModal.modal('show');
+    }
+
+    function uploadFile() {
+        let obj = $("#fileUpload")[0].files;
+        if (obj.length === 0) {
+            showHintModal("danger", "上传失败", "未选择任何文件");
+            return;
+        }
+        let form = new FormData();
+        form.append('file', obj[0]);
+        $.ajax({
+            type: 'POST',
+            url: '[(@{/api/file/upload})]',
+            contentType: false,
+            data: form,
+            processData: false, // 告诉jquery要传输data对象
+            success: function (arg) {
+                // console.log(arg)
+                if (arg.res === 0) {
+                    showHintModal("success", "上传成功", "所选文件已上传成功，请刷新页面以查看上传的文件");
+                    $("#fileUpload").val('');
+                } else {
+                    showHintModal("danger", "上传失败", "错误：" + arg.msg);
+                }
+            },
+            error: function (arg) {
+                console.log(arg)
+                showHintModal("danger", "上传失败", "服务器错误：" + arg.responseJSON.message);
+            }
+        })
+    }
+</script>
+
+<div th:replace="includes/admin :: side-bar ('file', ~{:: '#fileControlContent'})">
+    <div id="fileControlContent">
+        <h1>文件管理</h1>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#uploadNewModal">
+            上传新文件
+        </button>
+
+        <div id="uploadNewModal" class="modal fade" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">上传新文件</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="fileUploadForm" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="fileUpload">提示：一次只能上传一个文件</label>
+                                <input type="file" class="form-control-file" name="file" id="fileUpload" />
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                        <button onclick="uploadFile()" type="button" class="btn btn-primary">上传</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="uploadResultHintModal" class="modal fade modal-xl" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div id="uploadResultHintModalHeader" class="modal-header text-white bg-danger">
+                        <h5 id="uploadResultHintTitle" class="modal-title">[Modal Title]</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="uploadResultHintContent">[Modal Content]</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <table class="table">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col">顺序</th>
+                <th scope="col">文件名</th>
+                <th scope="col">上传日期</th>
+                <th scope="col">上传人</th>
+            </tr>
+            </thead>
+            <!--/*@thymesVar id="fileList" type="List<top.chorg.icommerce.bean.model.FileListItem>"*/-->
+            <tbody id="fileListArea">
+            <tr th:each="fileItemEntity : ${fileList}">
+                <th scope="row">[[ ${fileItemEntity.code} ]]</th>
+                <td><a target="_blank" href="#" th:href="@{/api/file/get/} + ${fileItemEntity.code}">[[ ${fileItemEntity.filename} ]]</a></td>
+                <td>[[ ${T(top.chorg.icommerce.common.StringRules).getDateTimeString(fileItemEntity.uploadTime)} ]]</td>
+                <td>[[ ${fileItemEntity.uploaderDisplayableName} ]]</td>
+            </tr>
+            <!--/*@thymesVar id="totalFiles" type="int"*/-->
+            <tr id="noDataSpacing" th:if="${totalFiles} == 0">
+                <th class="text-center" colspan="233" scope="row">无数据</th>
+            </tr>
+            </tbody>
+        </table>
+
+        <!--/*@thymesVar id="currentPage" type="int"*/-->
+        <!--/*@thymesVar id="totalPage" type="int"*/-->
+        <div th:include="includes/utils :: paginator(${currentPage}, ${totalPage}, '/admin/file?page=%s')"></div>
+
+    </div>
+</div>
+
+<div th:replace="includes/basic :: footer"></div>
+
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html class="min-vh-100" th:with="selectedTab='none'" xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<head th:include="includes/basic :: header ('页面管理')">
+    <title></title>
+</head>
+
+<body class="min-vh-100">
+<!--/*@thymesVar id="selectedTab" type="java.lang.String"*/-->
+<nav th:replace="includes/basic :: nav-bar (${selectedTab})"></nav>
+
+<div th:replace="includes/admin :: side-bar ('page', ~{:: '#masterContent'})">
+    <div id="masterContent">
+        <h1>页面管理</h1>
+        <button type="button" class="btn btn-primary">
+            添加页面
+        </button>
+
+        <table class="table">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">页面名称</th>
+                <th scope="col">页面用途</th>
+                <th scope="col">页面URL</th>
+                <th scope="col">访问状态</th>
+                <th scope="col">操作</th>
+            </tr>
+            </thead>
+            <!--/*@thymesVar id="fileList" type="List<top.chorg.icommerce.bean.model.FileListItem>"*/-->
+            <tbody id="couponListArea">
+                <tr>
+                    <th scope="row">1</th>
+                    <td>用户协议</td>
+                    <td>自由访问</td>
+                    <td>page/agreement</td>
+                    <td>正常</td>
+                    <td><a class="btn btn-primary">编辑</a></td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>双12活动页面</td>
+                    <td>活动页面</td>
+                    <td>page/1212</td>
+                    <td>隐藏</td>
+                    <td><a class="btn btn-primary">编辑</a></td>
+                </tr>
+<!--            <tr th:each="fileItemEntity : ${fileList}">-->
+<!--                <th scope="row">[[ ${fileItemEntity.code} ]]</th>-->
+<!--                <td><a target="_blank" href="#" th:href="@{/api/file/get/} + ${fileItemEntity.code}">[[ ${fileItemEntity.filename} ]]</a></td>-->
+<!--                <td>[[ ${T(top.chorg.icommerce.common.StringRules).getDateTimeString(fileItemEntity.uploadTime)} ]]</td>-->
+<!--                <td>[[ ${fileItemEntity.uploaderDisplayableName} ]]</td>-->
+<!--            </tr>-->
+<!--            &lt;!&ndash;/*@thymesVar id="totalFiles" type="int"*/&ndash;&gt;-->
+<!--            <tr id="noDataSpacing" th:if="${totalFiles} == 0">-->
+<!--                <th class="text-center" colspan="233" scope="row">无数据</th>-->
+<!--            </tr>-->
+            </tbody>
+        </table>
+
+        <!--/*@thymesVar id="currentPage" type="int"*/-->
+        <!--/*@thymesVar id="totalPage" type="int"*/-->
+        <div th:include="includes/utils :: paginator(${currentPage}, ${totalPage}, '/admin/file?page=%s')"></div>
+
+    </div>
+</div>
+
+<div th:replace="includes/basic :: footer"></div>
+
+</body>
+</html>

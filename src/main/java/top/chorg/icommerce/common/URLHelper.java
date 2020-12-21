@@ -12,4 +12,8 @@ public class URLHelper {
         );
     }
 
+    public static String getAdminUploadedFileUrl(String code) {
+        return String.format("@{/api/file/get/%s}", code);
+    }
+
 }

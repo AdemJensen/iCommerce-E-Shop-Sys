@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html th:with="selectedTab='index'" xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<head th:include="includes/basic :: header ('首页')">
+    <title></title>
+</head>
+
+<script>
+    let pn = 0;
+    let po = 0;
+    let qu = 1;
+
+    function calcPrice() {
+        let quantity = Number.parseInt(document.querySelector("#quantity").value);
+        if (quantity > qu) document.querySelector("#quantity").value = qu;
+        if (quantity < 1) document.querySelector("#quantity").value = 1;
+        quantity = Number.parseInt(document.querySelector("#quantity").value);
+        document.querySelector("#price_new").innerHTML = (String)(Math.floor(quantity * pn * 100) / 100);
+        document.querySelector("#price_old").innerHTML = (String)(Math.floor(quantity * po * 100) / 100);
+    }
+
+    function carted() {
+        let q = Number.parseInt(document.querySelector("#quantity").value);
+        if (q <= 0) return;
+        $.post(
+            "${pageContext.request.contextPath}/cart/add",
+            {
+                "item": 1,
+                "quantity": q
+            },
+            function (data) {
+                if (data === "OK") {
+                    document.querySelector("#addToCart").innerHTML = "添加成功";
+                    setTimeout(function () {
+                        document.querySelector("#addToCart").innerHTML = "加入购物车";
+                    }, 3000);
+                } else {
+                    document.querySelector("#addToCart").innerHTML = "添加失败";
+                    setTimeout(function () {
+                        document.querySelector("#addToCart").innerHTML = "加入购物车";
+                    }, 3000);
+                }
+            }
+        ).error(function () {
+            document.querySelector("#addToCart").innerHTML = "添加失败";
+            setTimeout(function () {
+                document.querySelector("#addToCart").innerHTML = "加入购物车";
+            }, 3000);
+        });
+
+    }
+
+    $(function () {
+        calcPrice();
+    });
+</script>
+<body>
+<!--/*@thymesVar id="selectedTab" type="java.lang.String"*/-->
+<nav th:replace="includes/basic :: nav-bar (${selectedTab})"></nav>
+
+<div class="container-fluid col-8 offset-2 my-3">
+    <div class="row">
+        <div class="col-4 p-1 border border-secondary" style="height: 400px;">
+            <img alt="item" class="position-relative"
+                 style="transform: translate(-50%, -50%);top: 50%;left: 50%; max-height: 390px; max-width: 95%" src=""
+                 th:src="${T(top.chorg.icommerce.common.URLHelper).getAdminUploadedFileUrl('test')}">
+        </div>
+        <div class="col-8 pl-5">
+            <h2 style="font-size: 150%">商品名称啦啦啦</h2>
+            <hr/>
+            <div class="row my-2">
+                <label class="col-3 text-secondary">价格</label>
+                <div class="col-9">
+                    <label class="text-danger" style="font-size: 200%">¥<label id="price_new">233</label></label>
+                    <small th:if="true" class="text-secondary" style="text-decoration: line-through">¥<label
+                        id="price_old" style="text-decoration: line-through">666</label></small>
+                    <label th:if="true" class="bg-success text-white px-1 mr-1">50% OFF</label>
+                </div>
+            </div>
+            <div class="row my-2">
+                <label class="col-3 text-secondary">累计销量</label>
+                <label>共售出 233 件</label>
+            </div>
+            <div class="row my-2">
+                <label class="col-3 text-secondary">库存</label>
+                <label>剩余 666 件</label>
+            </div>
+            <div class="row my-2">
+                <label class="col-3 text-secondary">发布时间</label>
+                <label>2000-12-22</label>
+            </div>
+            <form method="post" action="${pageContext.request.contextPath}/order/confirm">
+                <div class="row my-2">
+                    <label class="col-3 text-secondary" for="quantity">数量</label>
+                    <input class="form-control" onchange="calcPrice()" value="1" type="number" name="quantity"
+                           id="quantity" placeholder="购买数量" style="width: 150px;" required/>
+                    <input value="<%= info.id %>" type="hidden" name="itemId" required/>
+                </div>
+                <div class="row my-5">
+                    <div class="col-10 offset-3 px-0">
+                        <button title='请登录以提交订单' disabled type="submit" class="btn btn-success mr-1 disabled">立即购买</button>
+                        <button title='请登录以使用购物车' disabled type="button" id="addToCart" onclick="carted()"
+                        class="btn btn-primary disabled">加入购物车</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<hr/>
+<div class="container-fluid mx-4 my-2">
+    <label class="align-self-center col-12 text-center my-5" style="color:lightGray; font-size:300%">该商品没有简介</label>
+</div>
+<div th:replace="includes/basic :: footer"></div>
+</body>
+</html>

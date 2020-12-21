@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import top.chorg.icommerce.common.GeneralContext;
 
 import javax.servlet.http.HttpSession;
 
@@ -16,9 +17,17 @@ public class DebugController {
     private static final Logger LOG = LoggerFactory.getLogger(DebugController.class);
 
     final CommonsController commonsController;
+    final GeneralContext generalContext;
 
-    public DebugController(CommonsController commonsController) {
+    public DebugController(CommonsController commonsController, GeneralContext generalContext) {
         this.commonsController = commonsController;
+        this.generalContext = generalContext;
+    }
+
+    @RequestMapping(value = "test")
+    public String test(Model model) {
+        model.addAttribute("general", generalContext);
+        return "admin/pageEditor";
     }
 
     // Session test 1.

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html class="min-vh-100" th:with="selectedTab='none'" xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<head th:include="includes/basic :: header ('页面管理')">
+    <title></title>
+</head>
+
+<body class="min-vh-100">
+<!--/*@thymesVar id="selectedTab" type="java.lang.String"*/-->
+<nav th:replace="includes/basic :: nav-bar (${selectedTab})"></nav>
+
+<div th:replace="includes/admin :: side-bar ('item', ~{:: '#masterContent'})">
+    <div id="masterContent">
+        <h1>商品编辑</h1>
+        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#warningModal">
+            返回列表
+        </button>
+        <button type="button" class="btn btn-success">
+            提交更改
+        </button>
+
+        <div id="warningModal" class="modal fade" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">警告</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>您确定要离开此页面吗？未保存的内容将会丢失！</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                        <button onclick="uploadFile()" type="button" class="btn btn-primary">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <form action="" method="post">
+            <div class="form-group">
+                <label for="name">商品名称</label>
+                <input class="form-control" type="text" name="name" id="name" required />
+            </div>
+            <div class="form-group">
+                <label for="cover">封面文件Code</label>
+                <input class="form-control" type="text" name="cover" id="cover" required />
+            </div>
+            <div class="form-group">
+                <label for="sub-url">URL</label>
+                <div class="input-group-prepend">
+                    <label class="input-group-text" id="subUrlPrefix">/page/</label>
+                    <input class="form-control" type="text" name="sub-url" id="sub-url" aria-describedby="subUrlPrefix" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="is-hidden">隐藏</label>
+                <select class="custom-select" id="is-hidden" name="is-hidden" required>
+                    <option selected value="1">是</option>
+                    <option value="0">否</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="summernote">内容</label>
+                <textarea id="summernote" name="content"></textarea>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('#summernote').summernote({
+            height: 400
+        });
+    });
+</script>
+
+<div th:replace="includes/basic :: footer"></div>
+
+</body>
+</html>
